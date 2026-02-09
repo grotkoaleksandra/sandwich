@@ -5,6 +5,30 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ===== SCROLL ANIMATIONS =====
+const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = parseInt(el.dataset.delay || '0');
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, delay);
+            scrollObserver.unobserve(el);
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+});
+
+// Observe all elements with .anim class
+function initAnimations() {
+    document.querySelectorAll('.anim').forEach(el => {
+        scrollObserver.observe(el);
+    });
+}
+
 // ===== NAV =====
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -22,12 +46,16 @@ mobileMenu.querySelectorAll('a').forEach(link => {
     });
 });
 
-// Sticky nav background
+// Sticky nav shadow
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 50
-        ? 'rgba(255, 243, 220, 0.95)'
-        : 'rgba(255, 243, 220, 0.9)';
+    if (window.scrollY > 50) {
+        nav.style.background = 'rgba(255, 243, 220, 0.95)';
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    } else {
+        nav.style.background = 'rgba(255, 243, 220, 0.85)';
+        nav.style.boxShadow = 'none';
+    }
 });
 
 // ===== MENU =====
@@ -39,8 +67,13 @@ const categoryEmojis = {
     special: '⭐',
 };
 
+// Alternate animation types for variety
+const imageAnimations = ['pop-in', 'jelly', 'bounce-in', 'spin-in', 'wobble-in', 'swing-in'];
+const textAnimations = ['slide-in-right', 'slide-in-left', 'slide-in-right', 'slide-in-left', 'slide-in-right', 'slide-in-left'];
+const eventAnimations = ['slide-in-left', 'slide-in-right', 'slide-in-left'];
+
 async function loadMenu() {
-    const grid = document.getElementById('menuGrid');
+    const showcase = document.getElementById('menuShowcase');
 
     const { data: items, error } = await supabase
         .from('menu_items')
@@ -48,29 +81,41 @@ async function loadMenu() {
         .order('sort_order', { ascending: true });
 
     if (error || !items || items.length === 0) {
-        grid.innerHTML = '<div class="menu__empty">Menu coming soon — stay tuned!</div>';
+        showcase.innerHTML = '<div class="menu__empty">Menu coming soon — stay tuned!</div>';
         return;
     }
 
-    grid.innerHTML = items.map(item => `
-        <div class="menu-card">
-            <div class="menu-card__image">
-                ${item.image_url
-                    ? `<img src="${item.image_url}" alt="${item.name}" loading="lazy">`
-                    : categoryEmojis[item.category] || '🥪'
-                }
-            </div>
-            <div class="menu-card__body">
-                <div class="menu-card__category">${item.category}</div>
-                <h3 class="menu-card__name">${item.name}</h3>
-                ${item.description ? `<p class="menu-card__description">${item.description}</p>` : ''}
-                <div>
-                    <span class="menu-card__price">$${parseFloat(item.price).toFixed(2)}</span>
-                    ${!item.is_available ? '<span class="menu-card__unavailable">Sold Out</span>' : ''}
+    showcase.innerHTML = items.map((item, i) => {
+        const imgAnim = imageAnimations[i % imageAnimations.length];
+        const txtAnim = textAnimations[i % textAnimations.length];
+        // Flip text anim direction for even items (since layout is reversed)
+        const evenTxtAnim = i % 2 === 1
+            ? (txtAnim === 'slide-in-left' ? 'slide-in-right' : 'slide-in-left')
+            : txtAnim;
+
+        return `
+            <div class="showcase-item">
+                <div class="showcase-item__image showcase-item__image--bg anim" data-anim="${imgAnim}">
+                    ${item.image_url
+                        ? `<img src="${item.image_url}" alt="${item.name}" loading="lazy">`
+                        : categoryEmojis[item.category] || '🥪'
+                    }
+                </div>
+                <div class="showcase-item__text anim" data-anim="${evenTxtAnim}" data-delay="200">
+                    <div class="showcase-item__category">${item.category}</div>
+                    <h3 class="showcase-item__name">${item.name}</h3>
+                    ${item.description ? `<p class="showcase-item__description">${item.description}</p>` : ''}
+                    <div>
+                        <span class="showcase-item__price">$${parseFloat(item.price).toFixed(2)}</span>
+                        ${!item.is_available ? '<span class="showcase-item__unavailable">Sold Out</span>' : ''}
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
+
+    // Re-init animations for newly added elements
+    initAnimations();
 }
 
 // ===== EVENTS =====
@@ -89,16 +134,17 @@ async function loadEvents() {
         return;
     }
 
-    list.innerHTML = events.map(event => {
+    list.innerHTML = events.map((event, i) => {
         const date = new Date(event.event_date + 'T00:00:00');
         const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
         const day = date.getDate();
-
         const startTime = formatTime(event.start_time);
         const endTime = event.end_time ? ` – ${formatTime(event.end_time)}` : '';
+        const animType = eventAnimations[i % eventAnimations.length];
+        const delay = i * 150;
 
         return `
-            <div class="event-card">
+            <div class="event-card anim" data-anim="${animType}" data-delay="${delay}">
                 <div class="event-card__date">
                     <span class="event-card__month">${month}</span>
                     <span class="event-card__day">${day}</span>
@@ -112,6 +158,9 @@ async function loadEvents() {
             </div>
         `;
     }).join('');
+
+    // Re-init animations for newly added elements
+    initAnimations();
 }
 
 function formatTime(timeStr) {
@@ -193,5 +242,6 @@ contactForm.addEventListener('submit', async (e) => {
 });
 
 // ===== INIT =====
+initAnimations();
 loadMenu();
 loadEvents();

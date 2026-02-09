@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SANDWICH — Popup Kitchen</title>
+    <title>SPANKY'S — Popup Sandwich Joint</title>
     <meta name="description" content="Bold sandwiches. Limited drops. Join the crew.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Lilita+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <!-- NAV -->
     <nav class="nav" id="nav">
-        <a href="#" class="nav__logo">SANDWICH</a>
+        <a href="#" class="nav__logo">SPANKY'S</a>
         <div class="nav__links">
             <a href="#menu">MENU</a>
             <a href="#events">POPUPS</a>
@@ -36,37 +36,43 @@
 
     <!-- HERO -->
     <section class="hero">
+        <div class="hero__bg-text" aria-hidden="true">
+            <span>SPANKY'S</span><span>SPANKY'S</span><span>SPANKY'S</span>
+        </div>
         <div class="hero__content">
-            <h1 class="hero__title">
-                <span class="hero__title-line hero__title-line--1">BIG</span>
-                <span class="hero__title-line hero__title-line--2">BOLD</span>
-                <span class="hero__title-line hero__title-line--3">SANDWICH</span>
+            <div class="hero__badge anim" data-anim="spin-in">EST. 2026</div>
+            <h1 class="hero__title anim" data-anim="bounce-in">
+                SPANKY'S
             </h1>
-            <p class="hero__subtitle">Popup kitchen. Limited drops. Stupid good sandwiches.</p>
-            <div class="hero__cta">
-                <a href="#events" class="btn btn--primary">NEXT POPUP</a>
+            <p class="hero__tagline anim" data-anim="fade-up" data-delay="200">POPUP SANDWICH JOINT</p>
+            <p class="hero__subtitle anim" data-anim="fade-up" data-delay="400">Stupid good sandwiches. Limited drops. Come hungry.</p>
+            <div class="hero__cta anim" data-anim="fade-up" data-delay="600">
+                <a href="#events" class="btn btn--primary btn--wiggle">NEXT POPUP</a>
                 <a href="#menu" class="btn btn--outline">SEE MENU</a>
             </div>
         </div>
+        <div class="hero__sandwich-float" aria-hidden="true">🥪</div>
+        <div class="hero__pepper-float" aria-hidden="true">🌶️</div>
+        <div class="hero__fire-float" aria-hidden="true">🔥</div>
         <div class="hero__wave">
             <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-                <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z" fill="var(--color-cream)"/>
+                <path d="M0,40 C180,100 360,0 540,60 C720,120 900,20 1080,70 C1200,100 1320,40 1440,60 L1440,120 L0,120 Z" fill="var(--color-cream)"/>
             </svg>
         </div>
     </section>
 
-    <!-- MENU -->
+    <!-- MENU — Showcase style, not a grid shop -->
     <section class="menu" id="menu">
         <div class="container">
-            <h2 class="section-title">THE MENU</h2>
-            <p class="section-subtitle">What we're slinging this week</p>
-            <div class="menu__grid" id="menuGrid">
-                <!-- Populated by JS -->
-            </div>
+            <h2 class="section-title anim" data-anim="rubber-band">THE MENU</h2>
+            <p class="section-subtitle anim" data-anim="fade-up">What we're slinging this week</p>
         </div>
-        <div class="section-wave section-wave--red">
+        <div class="menu__showcase" id="menuShowcase">
+            <!-- Populated by JS — alternating left/right showcase items -->
+        </div>
+        <div class="section-wave section-wave--to-yellow">
             <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-                <path d="M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z" fill="var(--color-yellow)"/>
+                <path d="M0,80 C240,20 480,100 720,40 C960,0 1200,80 1440,40 L1440,120 L0,120 Z" fill="var(--color-yellow)"/>
             </svg>
         </div>
     </section>
@@ -74,13 +80,13 @@
     <!-- EVENTS / POPUPS -->
     <section class="events" id="events">
         <div class="container">
-            <h2 class="section-title section-title--dark">CATCH US</h2>
-            <p class="section-subtitle section-subtitle--dark">Upcoming popups and events</p>
+            <h2 class="section-title section-title--dark anim" data-anim="slide-in-left">CATCH US</h2>
+            <p class="section-subtitle section-subtitle--dark anim" data-anim="slide-in-right">Upcoming popups and events</p>
             <div class="events__list" id="eventsList">
                 <!-- Populated by JS -->
             </div>
         </div>
-        <div class="section-wave section-wave--flip">
+        <div class="section-wave">
             <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
                 <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z" fill="var(--color-red)"/>
             </svg>
@@ -90,7 +96,8 @@
     <!-- MAILING LIST -->
     <section class="signup" id="signup">
         <div class="container">
-            <div class="signup__card">
+            <div class="signup__card anim" data-anim="flip-in">
+                <div class="signup__emoji" aria-hidden="true">📬</div>
                 <h2 class="signup__title">JOIN THE CREW</h2>
                 <p class="signup__text">First to know about new drops, popup locations, and secret menu items.</p>
                 <form class="signup__form" id="signupForm">
@@ -111,9 +118,9 @@
     <!-- CONTACT -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title section-title--light">SAY HI</h2>
-            <p class="section-subtitle section-subtitle--light">Catering, collabs, or just wanna chat? Hit us up.</p>
-            <form class="contact__form" id="contactForm">
+            <h2 class="section-title section-title--light anim" data-anim="wobble-in">SAY HI</h2>
+            <p class="section-subtitle section-subtitle--light anim" data-anim="fade-up">Catering, collabs, or just wanna chat? Hit us up.</p>
+            <form class="contact__form anim" data-anim="fade-up" id="contactForm">
                 <input type="text" name="name" placeholder="Your name" class="input input--dark" id="contactName" required>
                 <input type="email" name="email" placeholder="Your email" class="input input--dark" id="contactEmail" required>
                 <textarea name="message" placeholder="What's on your mind?" class="input input--dark input--textarea" id="contactMessage" required></textarea>
@@ -127,7 +134,7 @@
     <footer class="footer">
         <div class="container footer__inner">
             <div class="footer__brand">
-                <span class="footer__logo">SANDWICH</span>
+                <span class="footer__logo">SPANKY'S</span>
                 <p class="footer__tagline">Stupid good sandwiches.</p>
             </div>
             <div class="footer__links">
@@ -136,7 +143,7 @@
                 <a href="#signup">Join</a>
                 <a href="#contact">Contact</a>
             </div>
-            <p class="footer__copy">&copy; 2026 Sandwich Popup. All rights reserved.</p>
+            <p class="footer__copy">&copy; 2026 Spanky's Popup. All rights reserved.</p>
         </div>
     </footer>
 
