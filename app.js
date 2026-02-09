@@ -2,8 +2,25 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = 'https://pvkbwpdxtaaetzwdyazy.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2a2J3cGR4dGFhZXR6d2R5YXp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2MzI0NTMsImV4cCI6MjA4NjIwODQ1M30.0WC3c6RvjrvKmz6a-uhsIeOBwdf2k-6ZVSN9OENXc4Y';
+const NOTIFY_EMAIL = 'grotkowskaaleksandra3@gmail.com';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ===== EMAIL HELPER =====
+async function sendEmailNotification({ to, subject, html, reply_to }) {
+    try {
+        await fetch(`${SUPABASE_URL}/functions/v1/send-email`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({ to, subject, html, reply_to }),
+        });
+    } catch (e) {
+        console.warn('Email notification failed:', e);
+    }
+}
 
 // ===== SMOOTH SCROLL REVEAL =====
 const observer = new IntersectionObserver((entries) => {
@@ -176,6 +193,17 @@ signupForm.addEventListener('submit', async (e) => {
         signupStatus.textContent = "You're in! Welcome to the crew.";
         signupStatus.style.color = '#4ade80';
         signupForm.reset();
+
+        // Notify you about new subscriber
+        sendEmailNotification({
+            to: NOTIFY_EMAIL,
+            subject: `New subscriber: ${firstName || email}`,
+            html: `
+                <h2>New mailing list signup!</h2>
+                <p><strong>Name:</strong> ${firstName || '(not provided)'}</p>
+                <p><strong>Email:</strong> ${email}</p>
+            `,
+        });
     }
 
     btn.textContent = 'COUNT ME IN';
@@ -209,6 +237,20 @@ contactForm.addEventListener('submit', async (e) => {
         contactStatus.textContent = "Sent! We'll be in touch.";
         contactStatus.style.color = '#4ade80';
         contactForm.reset();
+
+        // Send email notification
+        sendEmailNotification({
+            to: NOTIFY_EMAIL,
+            subject: `New contact from ${name}`,
+            html: `
+                <h2>New message from Spanky's website</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Message:</strong></p>
+                <p>${message.replace(/\n/g, '<br>')}</p>
+            `,
+            reply_to: email,
+        });
     }
 
     btn.textContent = 'SEND IT';
