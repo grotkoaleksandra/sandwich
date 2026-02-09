@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lilita+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body>
 
@@ -51,6 +52,28 @@
                 <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" stroke-width="2"/>
                 <circle class="hero__scroll-dot" cx="10" cy="10" r="3" fill="currentColor"/>
             </svg>
+        </div>
+    </section>
+
+    <!-- PUG MASCOT -->
+    <section class="pug-section" id="pugSection">
+        <div class="pug-section__inner">
+            <div class="pug-section__character" id="pugCharacter">
+                <div class="pug-section__speech" id="pugSpeech">FINALLY!</div>
+                <dotlottie-player
+                    id="pugPlayer"
+                    src="https://assets-v2.lottiefiles.com/a/2d976a74-1165-11ee-a477-dfadee75b08f/UNIglhtt7N.json"
+                    background="transparent"
+                    speed="1"
+                    style="width: 280px; height: 280px;"
+                    loop
+                    autoplay
+                ></dotlottie-player>
+            </div>
+            <button class="pug-section__btn" id="pugBtn">
+                <span class="pug-section__btn-text">TAKE ME TO THE SANDWICHES</span>
+                <span class="pug-section__btn-icon">🥪</span>
+            </button>
         </div>
     </section>
 

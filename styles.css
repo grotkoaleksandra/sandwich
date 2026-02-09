@@ -303,6 +303,123 @@ img { max-width: 100%; display: block; }
     50% { cy: 20; }
 }
 
+/* ===== PUG MASCOT SECTION ===== */
+.pug-section {
+    background: var(--color-cream);
+    padding: 60px 0 40px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pug-section__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.pug-section__character {
+    position: relative;
+    transition: transform 0.4s var(--ease-out);
+}
+
+/* Jump animation on click */
+.pug-section__character.jumping {
+    animation: pugJump 0.8s var(--ease-out);
+}
+
+@keyframes pugJump {
+    0%   { transform: translateY(0) scale(1); }
+    15%  { transform: translateY(10px) scale(1.05, 0.92); }
+    35%  { transform: translateY(-80px) scale(0.95, 1.08); }
+    55%  { transform: translateY(-80px) scale(1); }
+    75%  { transform: translateY(5px) scale(1.04, 0.94); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Speech bubble */
+.pug-section__speech {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: var(--color-red);
+    color: var(--color-cream);
+    font-family: var(--font-retro);
+    font-size: 1.6rem;
+    padding: 10px 24px;
+    border-radius: 20px;
+    white-space: nowrap;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: none;
+}
+
+.pug-section__speech::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 12px solid var(--color-red);
+}
+
+.pug-section__speech.show {
+    animation: speechPop 1.6s var(--ease-out) forwards;
+}
+
+@keyframes speechPop {
+    0%   { opacity: 0; transform: translateX(-50%) scale(0) translateY(0); }
+    15%  { opacity: 1; transform: translateX(-50%) scale(1.15) translateY(-10px); }
+    25%  { opacity: 1; transform: translateX(-50%) scale(1) translateY(-10px); }
+    75%  { opacity: 1; transform: translateX(-50%) scale(1) translateY(-10px); }
+    100% { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(-20px); }
+}
+
+/* Big fun button */
+.pug-section__btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-retro);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--color-cream);
+    background: var(--color-red);
+    padding: 18px 40px;
+    border-radius: 999px;
+    border: 3px solid var(--color-red);
+    cursor: pointer;
+    transition: all 0.35s var(--ease-out);
+    box-shadow: 0 6px 0 #c0202f, 0 10px 30px rgba(255,64,81,0.3);
+    position: relative;
+    top: 0;
+}
+
+.pug-section__btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #c0202f, 0 16px 40px rgba(255,64,81,0.4);
+}
+
+.pug-section__btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #c0202f, 0 4px 12px rgba(255,64,81,0.3);
+}
+
+.pug-section__btn-icon {
+    font-size: 1.4em;
+    display: inline-block;
+    transition: transform 0.3s var(--ease-out);
+}
+.pug-section__btn:hover .pug-section__btn-icon {
+    transform: rotate(-10deg) scale(1.15);
+}
+
 /* ===== BUTTONS ===== */
 .btn {
     display: inline-block;
@@ -753,6 +870,8 @@ img { max-width: 100%; display: block; }
         text-align: center;
     }
     .showcase-item__description { max-width: 100%; }
+
+    .pug-section__btn { font-size: 1rem; padding: 16px 28px; }
 
     .event-card { flex-direction: column; text-align: center; padding: 28px; }
 

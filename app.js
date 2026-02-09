@@ -215,6 +215,35 @@ contactForm.addEventListener('submit', async (e) => {
     btn.disabled = false;
 });
 
+// ===== PUG MASCOT INTERACTION =====
+const pugBtn = document.getElementById('pugBtn');
+const pugCharacter = document.getElementById('pugCharacter');
+const pugSpeech = document.getElementById('pugSpeech');
+
+pugBtn.addEventListener('click', () => {
+    // Reset animations
+    pugCharacter.classList.remove('jumping');
+    pugSpeech.classList.remove('show');
+
+    // Force reflow so animation restarts
+    void pugCharacter.offsetWidth;
+
+    // Trigger jump + speech bubble
+    pugCharacter.classList.add('jumping');
+    pugSpeech.classList.add('show');
+
+    // Scroll to menu after the jump animation
+    setTimeout(() => {
+        document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+    }, 900);
+
+    // Clean up classes after animation completes
+    setTimeout(() => {
+        pugCharacter.classList.remove('jumping');
+        pugSpeech.classList.remove('show');
+    }, 2000);
+});
+
 // ===== INIT =====
 observeAll();
 loadMenu();
