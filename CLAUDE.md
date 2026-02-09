@@ -12,3 +12,28 @@ A website for a sandwich popup restaurant, inspired by the bold, playful design 
 ## Development Rules
 - Push immediately after every meaningful change
 - Test all connections before marking setup complete
+
+## GitHub
+- **Repo**: https://github.com/grotkoaleksandra/sandwich
+- **Live site**: https://grotkoaleksandra.github.io/sandwich/
+
+## Supabase
+- **Project ref**: pvkbwpdxtaaetzwdyazy
+- **Project URL**: https://pvkbwpdxtaaetzwdyazy.supabase.co
+- **Anon key**: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2a2J3cGR4dGFhZXR6d2R5YXp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2MzI0NTMsImV4cCI6MjA4NjIwODQ1M30.0WC3c6RvjrvKmz6a-uhsIeOBwdf2k-6ZVSN9OENXc4Y
+- **Session pooler**: postgres://postgres.pvkbwpdxtaaetzwdyazy:[PASSWORD]@aws-0-us-east-1.pooler.supabase.com:5432/postgres
+- **CLI**: `npx supabase` (linked to project)
+
+### Database Tables
+- `menu_items` — sandwiches, sides, drinks (public read, auth write)
+- `popup_events` — schedule and locations (public read, auth write)
+- `mailing_list` — newsletter signups (public insert, auth read)
+- `contact_messages` — contact form submissions (public insert, auth read/update)
+
+### Storage Buckets
+- `images` — public read, authenticated upload/update/delete
+
+### RLS
+- Enabled on ALL tables
+- Public: read menu_items, popup_events; insert mailing_list, contact_messages
+- Authenticated: full access to all tables
