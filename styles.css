@@ -11,7 +11,7 @@
     --color-orange: #ff9a2c;
     --color-white: #ffffff;
 
-    --font-retro: 'Bungee Inline', cursive;
+    --font-retro: 'Luckiest Guy', cursive;
     --font-display: 'Lilita One', cursive;
     --font-body: 'Space Grotesk', sans-serif;
 
@@ -208,13 +208,27 @@ img { max-width: 100%; display: block; }
     position: absolute;
     inset: 0;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dark overlay so title pops against video */
+.hero__video-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
 }
 
 .hero__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
+    /* Scale up slightly to crop out any black borders in the video itself */
+    transform: scale(1.15);
 }
 
 /* Title overlaid on video */
@@ -239,9 +253,12 @@ img { max-width: 100%; display: block; }
     font-family: var(--font-retro);
     font-size: clamp(4rem, 14vw, 10rem);
     line-height: 1;
-    color: var(--color-cream);
+    color: var(--color-red);
     letter-spacing: 0.04em;
-    text-shadow: 0 4px 40px rgba(0,0,0,0.4);
+    text-shadow:
+        0 4px 0 #c0202f,
+        0 8px 40px rgba(0,0,0,0.5);
+    -webkit-text-stroke: 2px #c0202f;
 }
 
 .hero__tagline {
