@@ -7,7 +7,7 @@
     <meta name="description" content="Bold sandwiches. Limited drops. Join the crew.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Lilita+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Lilita+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,15 +34,15 @@
         <a href="#contact" class="mobile-menu__link">SAY HI</a>
     </div>
 
-    <!-- HERO — full viewport, video centered, title above -->
+    <!-- HERO — fullscreen video with title overlay -->
     <section class="hero" id="hero">
+        <div class="hero__video-wrap">
+            <video class="hero__video" autoplay loop muted playsinline>
+                <source src="hero.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="hero__content">
             <h1 class="hero__title">SPANKY'S</h1>
-            <div class="hero__video-wrap">
-                <video class="hero__video" autoplay loop muted playsinline>
-                    <source src="hero.mp4" type="video/mp4">
-                </video>
-            </div>
             <p class="hero__tagline">Popup Sandwich Joint</p>
         </div>
         <div class="hero__scroll-hint" aria-hidden="true">
