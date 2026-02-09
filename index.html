@@ -3,9 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandwich</title>
+    <title>SANDWICH — Popup Kitchen</title>
+    <meta name="description" content="Bold sandwiches. Limited drops. Join the crew.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Coming Soon</h1>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav__logo">SANDWICH</a>
+        <div class="nav__links">
+            <a href="#menu">MENU</a>
+            <a href="#events">POPUPS</a>
+            <a href="#signup">JOIN</a>
+            <a href="#contact">SAY HI</a>
+        </div>
+        <button class="nav__mobile-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#menu" class="mobile-menu__link">MENU</a>
+        <a href="#events" class="mobile-menu__link">POPUPS</a>
+        <a href="#signup" class="mobile-menu__link">JOIN</a>
+        <a href="#contact" class="mobile-menu__link">SAY HI</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero__content">
+            <h1 class="hero__title">
+                <span class="hero__title-line hero__title-line--1">BIG</span>
+                <span class="hero__title-line hero__title-line--2">BOLD</span>
+                <span class="hero__title-line hero__title-line--3">SANDWICH</span>
+            </h1>
+            <p class="hero__subtitle">Popup kitchen. Limited drops. Stupid good sandwiches.</p>
+            <div class="hero__cta">
+                <a href="#events" class="btn btn--primary">NEXT POPUP</a>
+                <a href="#menu" class="btn btn--outline">SEE MENU</a>
+            </div>
+        </div>
+        <div class="hero__wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z" fill="var(--color-cream)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2 class="section-title">THE MENU</h2>
+            <p class="section-subtitle">What we're slinging this week</p>
+            <div class="menu__grid" id="menuGrid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+        <div class="section-wave section-wave--red">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z" fill="var(--color-yellow)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- EVENTS / POPUPS -->
+    <section class="events" id="events">
+        <div class="container">
+            <h2 class="section-title section-title--dark">CATCH US</h2>
+            <p class="section-subtitle section-subtitle--dark">Upcoming popups and events</p>
+            <div class="events__list" id="eventsList">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+        <div class="section-wave section-wave--flip">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z" fill="var(--color-red)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- MAILING LIST -->
+    <section class="signup" id="signup">
+        <div class="container">
+            <div class="signup__card">
+                <h2 class="signup__title">JOIN THE CREW</h2>
+                <p class="signup__text">First to know about new drops, popup locations, and secret menu items.</p>
+                <form class="signup__form" id="signupForm">
+                    <input type="text" name="first_name" placeholder="First name" class="input" id="signupName">
+                    <input type="email" name="email" placeholder="Your email" class="input" id="signupEmail" required>
+                    <button type="submit" class="btn btn--primary btn--full" id="signupBtn">COUNT ME IN</button>
+                </form>
+                <p class="signup__status" id="signupStatus"></p>
+            </div>
+        </div>
+        <div class="section-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="var(--color-dark)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title section-title--light">SAY HI</h2>
+            <p class="section-subtitle section-subtitle--light">Catering, collabs, or just wanna chat? Hit us up.</p>
+            <form class="contact__form" id="contactForm">
+                <input type="text" name="name" placeholder="Your name" class="input input--dark" id="contactName" required>
+                <input type="email" name="email" placeholder="Your email" class="input input--dark" id="contactEmail" required>
+                <textarea name="message" placeholder="What's on your mind?" class="input input--dark input--textarea" id="contactMessage" required></textarea>
+                <button type="submit" class="btn btn--yellow btn--full" id="contactBtn">SEND IT</button>
+            </form>
+            <p class="contact__status" id="contactStatus"></p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <span class="footer__logo">SANDWICH</span>
+                <p class="footer__tagline">Stupid good sandwiches.</p>
+            </div>
+            <div class="footer__links">
+                <a href="#menu">Menu</a>
+                <a href="#events">Popups</a>
+                <a href="#signup">Join</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="footer__copy">&copy; 2026 Sandwich Popup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
