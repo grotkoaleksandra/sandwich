@@ -37,3 +37,13 @@ A website for a sandwich popup restaurant, inspired by the bold, playful design 
 - Enabled on ALL tables
 - Public: read menu_items, popup_events; insert mailing_list, contact_messages
 - Authenticated: full access to all tables
+
+## Resend (Email)
+- **Edge function**: `send-email` — deployed at https://pvkbwpdxtaaetzwdyazy.supabase.co/functions/v1/send-email
+- **Shared service**: `shared/email-service.js`
+- **Secret**: `RESEND_API_KEY` (set in Supabase secrets)
+- **Note**: Verify a custom domain at https://resend.com/domains to send to any recipient. Currently limited to owner email only.
+
+## Google Gemini (AI)
+- **Secret**: `GEMINI_API_KEY` (set in Supabase secrets)
+- **Usage**: Available in edge functions via `Deno.env.get("GEMINI_API_KEY")`
