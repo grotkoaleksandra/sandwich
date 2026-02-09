@@ -1,0 +1,41 @@
+export const ENEMY_TYPES = {
+  grunt: {
+    name: 'Grunt',
+    color: 0xcc3333,
+    scale: 1.0,
+    health: 30,
+    speed: 3,
+    chaseSpeed: 4.5,
+    damage: 8,
+    fireRate: 0.8, // shots per second
+    detectionRange: 18,
+    attackRange: 14,
+    accuracy: 0.85, // 1.0 = perfect, lower = more spread
+  },
+  fast: {
+    name: 'Runner',
+    color: 0xff8800,
+    scale: 0.8,
+    health: 20,
+    speed: 5,
+    chaseSpeed: 7,
+    damage: 6,
+    fireRate: 1.2,
+    detectionRange: 20,
+    attackRange: 10,
+    accuracy: 0.7,
+  },
+  tank: {
+    name: 'Tank',
+    color: 0x881111,
+    scale: 1.4,
+    health: 80,
+    speed: 1.5,
+    chaseSpeed: 2.5,
+    damage: 15,
+    fireRate: 0.5,
+    detectionRange: 16,
+    attackRange: 16,
+    accuracy: 0.9,
+  },
+};

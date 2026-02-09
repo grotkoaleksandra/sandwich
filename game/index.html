@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Block Shooter</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/game.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- HUD overlay -->
+    <div id="hud" class="hidden">
+      <div id="hud-health">
+        <div id="health-bar-bg">
+          <div id="health-bar-fill"></div>
+        </div>
+        <span id="health-text">100</span>
+      </div>
+      <div id="hud-level">LEVEL 1</div>
+      <div id="hud-kills">0 / 0</div>
+      <div id="hud-ammo">
+        <span id="ammo-current">30</span> / <span id="ammo-max">30</span>
+        <span id="reload-indicator" class="hidden">RELOADING</span>
+      </div>
+      <div id="crosshair">+</div>
+      <div id="damage-vignette"></div>
+    </div>
+
+    <!-- Menu screens -->
+    <div id="menu-screen">
+      <div id="menu-content">
+        <h1 id="menu-title">BLOCK SHOOTER</h1>
+        <p id="menu-subtitle">A Third-Person Shooter</p>
+        <button id="menu-start-btn">START GAME</button>
+        <p id="menu-hint">WASD to move &bull; Mouse to aim &bull; Click to shoot</p>
+      </div>
+    </div>
+
+    <!-- Pause screen -->
+    <div id="pause-screen" class="hidden">
+      <div id="pause-content">
+        <h2>PAUSED</h2>
+        <button id="pause-resume-btn">RESUME</button>
+        <button id="pause-quit-btn">QUIT TO MENU</button>
+      </div>
+    </div>
+
+    <!-- Level complete screen -->
+    <div id="level-complete-screen" class="hidden">
+      <div id="level-complete-content">
+        <h2 id="level-complete-title">LEVEL COMPLETE</h2>
+        <div id="level-stats"></div>
+        <button id="next-level-btn">NEXT LEVEL</button>
+      </div>
+    </div>
+
+    <!-- Game over screen -->
+    <div id="game-over-screen" class="hidden">
+      <div id="game-over-content">
+        <h2>GAME OVER</h2>
+        <div id="game-over-stats"></div>
+        <button id="retry-btn">RETRY</button>
+        <button id="game-over-quit-btn">QUIT TO MENU</button>
+      </div>
+    </div>
+
+    <!-- Victory screen -->
+    <div id="victory-screen" class="hidden">
+      <div id="victory-content">
+        <h2>VICTORY!</h2>
+        <p>You cleared all levels!</p>
+        <div id="victory-stats"></div>
+        <button id="victory-menu-btn">MAIN MENU</button>
+      </div>
+    </div>
+
+    <!-- Touch controls -->
+    <div id="touch-controls" class="hidden">
+      <div id="touch-left-zone">
+        <div id="touch-left-joystick">
+          <div id="touch-left-base"></div>
+          <div id="touch-left-thumb"></div>
+        </div>
+      </div>
+      <div id="touch-right-zone">
+        <div id="touch-right-joystick">
+          <div id="touch-right-base"></div>
+          <div id="touch-right-thumb"></div>
+        </div>
+      </div>
+      <button id="touch-reload-btn">R</button>
+      <button id="touch-pause-btn">| |</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
