@@ -5,40 +5,32 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ===== SCROLL ANIMATIONS =====
-const scrollObserver = new IntersectionObserver((entries) => {
+// ===== SMOOTH SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const el = entry.target;
-            const delay = parseInt(el.dataset.delay || '0');
-            setTimeout(() => {
-                el.classList.add('visible');
-            }, delay);
-            scrollObserver.unobserve(el);
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
         }
     });
-}, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
-});
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-// Observe all elements with .anim class
-function initAnimations() {
-    document.querySelectorAll('.anim').forEach(el => {
-        scrollObserver.observe(el);
+function observeAll() {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        observer.observe(el);
     });
 }
 
 // ===== NAV =====
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
+const nav = document.getElementById('nav');
 
 navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
     mobileMenu.classList.toggle('open');
 });
 
-// Close mobile menu on link click
 mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
         navToggle.classList.remove('active');
@@ -46,17 +38,9 @@ mobileMenu.querySelectorAll('a').forEach(link => {
     });
 });
 
-// Sticky nav shadow
-const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        nav.style.background = 'rgba(255, 243, 220, 0.95)';
-        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-    } else {
-        nav.style.background = 'rgba(255, 243, 220, 0.85)';
-        nav.style.boxShadow = 'none';
-    }
-});
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
 
 // ===== MENU =====
 const categoryEmojis = {
@@ -66,11 +50,6 @@ const categoryEmojis = {
     dessert: '🍪',
     special: '⭐',
 };
-
-// Alternate animation types for variety
-const imageAnimations = ['pop-in', 'jelly', 'bounce-in', 'spin-in', 'wobble-in', 'swing-in'];
-const textAnimations = ['slide-in-right', 'slide-in-left', 'slide-in-right', 'slide-in-left', 'slide-in-right', 'slide-in-left'];
-const eventAnimations = ['slide-in-left', 'slide-in-right', 'slide-in-left'];
 
 async function loadMenu() {
     const showcase = document.getElementById('menuShowcase');
@@ -86,36 +65,35 @@ async function loadMenu() {
     }
 
     showcase.innerHTML = items.map((item, i) => {
-        const imgAnim = imageAnimations[i % imageAnimations.length];
-        const txtAnim = textAnimations[i % textAnimations.length];
-        // Flip text anim direction for even items (since layout is reversed)
-        const evenTxtAnim = i % 2 === 1
-            ? (txtAnim === 'slide-in-left' ? 'slide-in-right' : 'slide-in-left')
-            : txtAnim;
+        const num = String(i + 1).padStart(2, '0');
+        // Odd items: image left (reveal-left), text right (reveal-right)
+        // Even items: image right (reveal-right), text left (reveal-left) — because of row-reverse
+        const imgReveal = i % 2 === 0 ? 'reveal-left' : 'reveal-right';
+        const txtReveal = i % 2 === 0 ? 'reveal-right' : 'reveal-left';
 
         return `
             <div class="showcase-item">
-                <div class="showcase-item__image showcase-item__image--bg anim" data-anim="${imgAnim}">
+                <div class="showcase-item__image ${imgReveal}">
                     ${item.image_url
                         ? `<img src="${item.image_url}" alt="${item.name}" loading="lazy">`
                         : categoryEmojis[item.category] || '🥪'
                     }
                 </div>
-                <div class="showcase-item__text anim" data-anim="${evenTxtAnim}" data-delay="200">
+                <div class="showcase-item__text ${txtReveal}">
+                    <div class="showcase-item__number">${num}</div>
                     <div class="showcase-item__category">${item.category}</div>
                     <h3 class="showcase-item__name">${item.name}</h3>
                     ${item.description ? `<p class="showcase-item__description">${item.description}</p>` : ''}
                     <div>
                         <span class="showcase-item__price">$${parseFloat(item.price).toFixed(2)}</span>
-                        ${!item.is_available ? '<span class="showcase-item__unavailable">Sold Out</span>' : ''}
+                        ${!item.is_available ? '<span class="showcase-item__unavailable">SOLD OUT</span>' : ''}
                     </div>
                 </div>
             </div>
         `;
     }).join('');
 
-    // Re-init animations for newly added elements
-    initAnimations();
+    observeAll();
 }
 
 // ===== EVENTS =====
@@ -140,11 +118,9 @@ async function loadEvents() {
         const day = date.getDate();
         const startTime = formatTime(event.start_time);
         const endTime = event.end_time ? ` – ${formatTime(event.end_time)}` : '';
-        const animType = eventAnimations[i % eventAnimations.length];
-        const delay = i * 150;
 
         return `
-            <div class="event-card anim" data-anim="${animType}" data-delay="${delay}">
+            <div class="event-card reveal" style="transition-delay: ${i * 0.1}s">
                 <div class="event-card__date">
                     <span class="event-card__month">${month}</span>
                     <span class="event-card__day">${day}</span>
@@ -159,8 +135,7 @@ async function loadEvents() {
         `;
     }).join('');
 
-    // Re-init animations for newly added elements
-    initAnimations();
+    observeAll();
 }
 
 function formatTime(timeStr) {
@@ -192,14 +167,13 @@ signupForm.addEventListener('submit', async (e) => {
 
     if (error) {
         if (error.code === '23505') {
-            signupStatus.textContent = "You're already on the list! 🎉";
-            signupStatus.style.color = 'var(--color-yellow)';
+            signupStatus.textContent = "You're already on the list!";
         } else {
             signupStatus.textContent = 'Something went wrong. Try again?';
             signupStatus.style.color = 'var(--color-red)';
         }
     } else {
-        signupStatus.textContent = "You're in! Welcome to the crew 🥪";
+        signupStatus.textContent = "You're in! Welcome to the crew.";
         signupStatus.style.color = '#4ade80';
         signupForm.reset();
     }
@@ -232,7 +206,7 @@ contactForm.addEventListener('submit', async (e) => {
         contactStatus.textContent = 'Something went wrong. Try again?';
         contactStatus.style.color = 'var(--color-red)';
     } else {
-        contactStatus.textContent = "Message sent! We'll get back to you 🤙";
+        contactStatus.textContent = "Sent! We'll be in touch.";
         contactStatus.style.color = '#4ade80';
         contactForm.reset();
     }
@@ -242,6 +216,6 @@ contactForm.addEventListener('submit', async (e) => {
 });
 
 // ===== INIT =====
-initAnimations();
+observeAll();
 loadMenu();
 loadEvents();

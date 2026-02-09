@@ -40,14 +40,12 @@
             <span>SPANKY'S</span><span>SPANKY'S</span><span>SPANKY'S</span>
         </div>
         <div class="hero__content">
-            <div class="hero__badge anim" data-anim="spin-in">EST. 2026</div>
-            <h1 class="hero__title anim" data-anim="bounce-in">
-                SPANKY'S
-            </h1>
-            <p class="hero__tagline anim" data-anim="fade-up" data-delay="200">POPUP SANDWICH JOINT</p>
-            <p class="hero__subtitle anim" data-anim="fade-up" data-delay="400">Stupid good sandwiches. Limited drops. Come hungry.</p>
-            <div class="hero__cta anim" data-anim="fade-up" data-delay="600">
-                <a href="#events" class="btn btn--primary btn--wiggle">NEXT POPUP</a>
+            <div class="hero__badge">EST. 2026</div>
+            <h1 class="hero__title">SPANKY'S</h1>
+            <p class="hero__tagline">POPUP SANDWICH JOINT</p>
+            <p class="hero__subtitle">Stupid good sandwiches. Limited drops. Come hungry.</p>
+            <div class="hero__cta">
+                <a href="#events" class="btn btn--primary">NEXT POPUP</a>
                 <a href="#menu" class="btn btn--outline">SEE MENU</a>
             </div>
         </div>
@@ -61,16 +59,16 @@
         </div>
     </section>
 
-    <!-- MENU — Showcase style, not a grid shop -->
+    <!-- MENU -->
     <section class="menu" id="menu">
         <div class="container">
-            <h2 class="section-title anim" data-anim="rubber-band">THE MENU</h2>
-            <p class="section-subtitle anim" data-anim="fade-up">What we're slinging this week</p>
+            <h2 class="section-title reveal">THE MENU</h2>
+            <p class="section-subtitle reveal">What we're slinging this week</p>
         </div>
         <div class="menu__showcase" id="menuShowcase">
-            <!-- Populated by JS — alternating left/right showcase items -->
+            <!-- Populated by JS -->
         </div>
-        <div class="section-wave section-wave--to-yellow">
+        <div class="section-wave">
             <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
                 <path d="M0,80 C240,20 480,100 720,40 C960,0 1200,80 1440,40 L1440,120 L0,120 Z" fill="var(--color-yellow)"/>
             </svg>
@@ -80,8 +78,8 @@
     <!-- EVENTS / POPUPS -->
     <section class="events" id="events">
         <div class="container">
-            <h2 class="section-title section-title--dark anim" data-anim="slide-in-left">CATCH US</h2>
-            <p class="section-subtitle section-subtitle--dark anim" data-anim="slide-in-right">Upcoming popups and events</p>
+            <h2 class="section-title section-title--dark reveal">CATCH US</h2>
+            <p class="section-subtitle section-subtitle--dark reveal">Upcoming popups and events</p>
             <div class="events__list" id="eventsList">
                 <!-- Populated by JS -->
             </div>
@@ -96,7 +94,7 @@
     <!-- MAILING LIST -->
     <section class="signup" id="signup">
         <div class="container">
-            <div class="signup__card anim" data-anim="flip-in">
+            <div class="signup__card reveal-scale">
                 <div class="signup__emoji" aria-hidden="true">📬</div>
                 <h2 class="signup__title">JOIN THE CREW</h2>
                 <p class="signup__text">First to know about new drops, popup locations, and secret menu items.</p>
@@ -118,9 +116,9 @@
     <!-- CONTACT -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title section-title--light anim" data-anim="wobble-in">SAY HI</h2>
-            <p class="section-subtitle section-subtitle--light anim" data-anim="fade-up">Catering, collabs, or just wanna chat? Hit us up.</p>
-            <form class="contact__form anim" data-anim="fade-up" id="contactForm">
+            <h2 class="section-title section-title--light reveal">SAY HI</h2>
+            <p class="section-subtitle section-subtitle--light reveal">Catering, collabs, or just wanna chat? Hit us up.</p>
+            <form class="contact__form reveal" id="contactForm">
                 <input type="text" name="name" placeholder="Your name" class="input input--dark" id="contactName" required>
                 <input type="email" name="email" placeholder="Your email" class="input input--dark" id="contactEmail" required>
                 <textarea name="message" placeholder="What's on your mind?" class="input input--dark input--textarea" id="contactMessage" required></textarea>
