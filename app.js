@@ -349,14 +349,6 @@ musicToggle.addEventListener('click', () => {
 const pugBtn = document.getElementById('pugBtn');
 const pugCharacter = document.getElementById('pugCharacter');
 const pugSpeech = document.getElementById('pugSpeech');
-const pugVideo = document.querySelector('.pug-section__video');
-
-// Ensure pug video plays (browsers can block autoplay)
-if (pugVideo) {
-    pugVideo.play().catch(() => {});
-    document.addEventListener('click', () => pugVideo.play().catch(() => {}), { once: true });
-}
-
 pugBtn.addEventListener('click', () => {
     // Play boing sound
     playBoingSound();
