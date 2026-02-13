@@ -324,11 +324,9 @@ img { max-width: 100%; display: block; }
     transition: transform 0.4s var(--ease-out);
 }
 
-.pug-section__video {
+.pug-section__img {
     width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 50%;
+    height: auto;
     display: block;
 }
 
