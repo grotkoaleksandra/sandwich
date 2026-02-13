@@ -324,11 +324,10 @@ img { max-width: 100%; display: block; }
     transition: transform 0.4s var(--ease-out);
 }
 
-.pug-section__video {
+.pug-section__canvas {
     width: 300px;
-    height: auto;
+    height: 300px;
     display: block;
-    mix-blend-mode: multiply;
 }
 
 /* Jump animation on click */

@@ -377,6 +377,30 @@ pugBtn.addEventListener('click', () => {
     }, 2000);
 });
 
+// ===== PUG BACKGROUND REMOVAL =====
+const pugImgSrc = document.getElementById('pugImgSrc');
+const pugCanvas = document.getElementById('pugCanvas');
+
+function removeBackground() {
+    const ctx = pugCanvas.getContext('2d');
+    const w = pugCanvas.width;
+    const h = pugCanvas.height;
+    ctx.drawImage(pugImgSrc, 0, 0, w, h);
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+        // If pixel is light gray/white (all channels high and similar), make transparent
+        if (r > 180 && g > 180 && b > 180 && Math.abs(r - g) < 30 && Math.abs(r - b) < 30) {
+            data[i+3] = 0; // set alpha to 0
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+
+pugImgSrc.addEventListener('load', removeBackground);
+if (pugImgSrc.complete) removeBackground();
+
 // ===== INIT =====
 observeAll();
 loadMenu();
