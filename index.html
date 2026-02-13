@@ -60,7 +60,9 @@
         <div class="pug-section__inner">
             <div class="pug-section__character" id="pugCharacter">
                 <div class="pug-section__speech" id="pugSpeech">FINALLY!</div>
-                <img class="pug-section__video" src="pug.gif" alt="Spanky the chef pug">
+                <video class="pug-section__video" id="pugVideo" autoplay loop muted playsinline preload="auto">
+                    <source src="hf_20260212_104709_d5301534-a45c-44da-87bf-013144f0f74c.mp4" type="video/mp4">
+                </video>
             </div>
             <button class="pug-section__btn" id="pugBtn">
                 <span class="pug-section__btn-text">TAKE ME TO THE SANDWICHES</span>
@@ -153,11 +155,6 @@
             <p class="footer__copy">&copy; 2026 Spanky's Popup. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- MUSIC TOGGLE -->
-    <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
-        <span class="music-toggle__icon" id="musicIcon">🔇</span>
-    </button>
 
     <script type="module" src="app.js"></script>
 </body>

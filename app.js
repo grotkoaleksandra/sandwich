@@ -257,102 +257,47 @@ contactForm.addEventListener('submit', async (e) => {
     btn.disabled = false;
 });
 
-// ===== AUDIO =====
-let audioCtx = null;
-let bgMusicPlaying = false;
-let bgGain = null;
+// ===== PUG VIDEO — force playback =====
+const pugVideo = document.getElementById('pugVideo');
 
-function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    return audioCtx;
-}
-
-// Pug "boing" sound effect
-function playBoingSound() {
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(300, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1);
-    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.3);
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.4);
-}
-
-// Background music — fun chill synth loop
-let bgNodes = [];
-function startBgMusic() {
-    const ctx = getAudioCtx();
-    bgGain = ctx.createGain();
-    bgGain.gain.value = 0.08;
-    bgGain.connect(ctx.destination);
-
-    const notes = [261.6, 329.6, 392.0, 349.2]; // C4, E4, G4, F4
-    const beatLen = 0.5;
-
-    function scheduleLoop(startTime) {
-        notes.forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const noteGain = ctx.createGain();
-            osc.connect(noteGain);
-            noteGain.connect(bgGain);
-            osc.type = 'triangle';
-            osc.frequency.value = freq;
-            const t = startTime + i * beatLen;
-            noteGain.gain.setValueAtTime(0, t);
-            noteGain.gain.linearRampToValueAtTime(1, t + 0.05);
-            noteGain.gain.linearRampToValueAtTime(0, t + beatLen - 0.05);
-            osc.start(t);
-            osc.stop(t + beatLen);
-            bgNodes.push(osc);
+function forcePlayVideo() {
+    if (!pugVideo) return;
+    pugVideo.muted = true;
+    const playPromise = pugVideo.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // Autoplay blocked — try again on any user interaction
+            ['click', 'touchstart', 'scroll'].forEach(evt => {
+                document.addEventListener(evt, () => {
+                    pugVideo.muted = true;
+                    pugVideo.play().catch(() => {});
+                }, { once: true });
+            });
         });
-        // Schedule next loop
-        const nextStart = startTime + notes.length * beatLen;
-        if (bgMusicPlaying) {
-            bgLoopTimer = setTimeout(() => {
-                if (bgMusicPlaying) scheduleLoop(ctx.currentTime);
-            }, (nextStart - ctx.currentTime - 0.1) * 1000);
-        }
     }
-
-    bgMusicPlaying = true;
-    scheduleLoop(ctx.currentTime);
 }
 
-let bgLoopTimer = null;
-function stopBgMusic() {
-    bgMusicPlaying = false;
-    clearTimeout(bgLoopTimer);
-    if (bgGain) bgGain.gain.value = 0;
-}
-
-// Music toggle button
-const musicToggle = document.getElementById('musicToggle');
-const musicIcon = document.getElementById('musicIcon');
-
-musicToggle.addEventListener('click', () => {
-    if (bgMusicPlaying) {
-        stopBgMusic();
-        musicIcon.textContent = '🔇';
-    } else {
-        startBgMusic();
-        musicIcon.textContent = '🔊';
-    }
+// Try immediately
+forcePlayVideo();
+// Try again after load
+pugVideo?.addEventListener('loadeddata', forcePlayVideo);
+// Try on visibility change (tab switch back)
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) forcePlayVideo();
 });
+// Try when scrolled into view
+const pugObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) forcePlayVideo();
+    });
+}, { threshold: 0.1 });
+if (pugVideo) pugObserver.observe(pugVideo);
 
 // ===== PUG MASCOT INTERACTION =====
 const pugBtn = document.getElementById('pugBtn');
 const pugCharacter = document.getElementById('pugCharacter');
 const pugSpeech = document.getElementById('pugSpeech');
 pugBtn.addEventListener('click', () => {
-    // Play boing sound
-    playBoingSound();
-
     // Reset animations
     pugCharacter.classList.remove('jumping');
     pugSpeech.classList.remove('show');
