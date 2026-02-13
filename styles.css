@@ -324,11 +324,12 @@ img { max-width: 100%; display: block; }
     transition: transform 0.4s var(--ease-out);
 }
 
-.pug-section__img {
+.pug-section__video {
     width: 300px;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
     display: block;
-    mix-blend-mode: multiply;
 }
 
 /* Jump animation on click */
@@ -855,33 +856,6 @@ img { max-width: 100%; display: block; }
 .footer__copy {
     color: rgba(255,243,220,0.2);
     font-size: 0.75rem;
-}
-
-/* ===== MUSIC TOGGLE ===== */
-.music-toggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 100;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 2px solid var(--color-red);
-    background: var(--color-dark);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.35s var(--ease-out);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
-.music-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(255,64,81,0.3);
-}
-.music-toggle__icon {
-    font-size: 1.4rem;
-    line-height: 1;
 }
 
 /* ===== RESPONSIVE ===== */
