@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lilita+One&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
 </head>
 <body>
 
@@ -60,15 +60,9 @@
         <div class="pug-section__inner">
             <div class="pug-section__character" id="pugCharacter">
                 <div class="pug-section__speech" id="pugSpeech">FINALLY!</div>
-                <dotlottie-player
-                    id="pugPlayer"
-                    src="https://assets-v2.lottiefiles.com/a/6ebbfe1c-1164-11ee-b739-ebc54937f955/kl2omCF1AG.json"
-                    background="transparent"
-                    speed="1"
-                    style="width: 300px; height: 300px;"
-                    loop
-                    autoplay
-                ></dotlottie-player>
+                <video class="pug-section__video" autoplay loop muted playsinline>
+                    <source src="hero.mp4" type="video/mp4">
+                </video>
             </div>
             <button class="pug-section__btn" id="pugBtn">
                 <span class="pug-section__btn-text">TAKE ME TO THE SANDWICHES</span>
