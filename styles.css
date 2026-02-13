@@ -326,10 +326,10 @@ img { max-width: 100%; display: block; }
 
 .pug-section__video {
     width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 50%;
+    height: auto;
     display: block;
+    background: var(--color-cream);
+    mix-blend-mode: multiply;
 }
 
 /* Jump animation on click */
