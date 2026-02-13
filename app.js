@@ -377,6 +377,34 @@ pugBtn.addEventListener('click', () => {
     }, 2000);
 });
 
+// ===== PUG BACKGROUND REMOVAL =====
+const pugImgSrc = document.getElementById('pugImgSrc');
+const pugCanvas = document.getElementById('pugCanvas');
+
+function removeBackground() {
+    const canvas = pugCanvas;
+    const ctx = canvas.getContext('2d');
+    canvas.width = pugImgSrc.naturalWidth;
+    canvas.height = pugImgSrc.naturalHeight;
+    ctx.drawImage(pugImgSrc, 0, 0);
+    try {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const d = imageData.data;
+        for (let i = 0; i < d.length; i += 4) {
+            const r = d[i], g = d[i+1], b = d[i+2];
+            if (r > 170 && g > 170 && b > 170 && Math.abs(r-g) < 35 && Math.abs(r-b) < 35) {
+                d[i+3] = 0;
+            }
+        }
+        ctx.putImageData(imageData, 0, 0);
+    } catch(e) {
+        // Fallback: just show the image as-is on canvas
+    }
+}
+
+pugImgSrc.addEventListener('load', removeBackground);
+if (pugImgSrc.complete) removeBackground();
+
 // ===== INIT =====
 observeAll();
 loadMenu();
