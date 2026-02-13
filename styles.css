@@ -858,6 +858,33 @@ img { max-width: 100%; display: block; }
     font-size: 0.75rem;
 }
 
+/* ===== MUSIC TOGGLE ===== */
+.music-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--color-red);
+    background: var(--color-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s var(--ease-out);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 24px rgba(255,64,81,0.3);
+}
+.music-toggle__icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 810px) {
     .nav__links { display: none; }
