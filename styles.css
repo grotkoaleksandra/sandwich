@@ -328,8 +328,8 @@ img { max-width: 100%; display: block; }
     width: 300px;
     height: auto;
     display: block;
-    background: var(--color-cream);
-    mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse, black 55%, transparent 80%);
+    mask-image: radial-gradient(ellipse, black 55%, transparent 80%);
 }
 
 /* Jump animation on click */
