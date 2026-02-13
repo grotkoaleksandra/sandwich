@@ -257,46 +257,11 @@ contactForm.addEventListener('submit', async (e) => {
     btn.disabled = false;
 });
 
-// ===== PUG VIDEO — force playback =====
-const pugVideo = document.getElementById('pugVideo');
-
-function forcePlayVideo() {
-    if (!pugVideo) return;
-    pugVideo.muted = true;
-    const playPromise = pugVideo.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            // Autoplay blocked — try again on any user interaction
-            ['click', 'touchstart', 'scroll'].forEach(evt => {
-                document.addEventListener(evt, () => {
-                    pugVideo.muted = true;
-                    pugVideo.play().catch(() => {});
-                }, { once: true });
-            });
-        });
-    }
-}
-
-// Try immediately
-forcePlayVideo();
-// Try again after load
-pugVideo?.addEventListener('loadeddata', forcePlayVideo);
-// Try on visibility change (tab switch back)
-document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) forcePlayVideo();
-});
-// Try when scrolled into view
-const pugObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) forcePlayVideo();
-    });
-}, { threshold: 0.1 });
-if (pugVideo) pugObserver.observe(pugVideo);
-
 // ===== PUG MASCOT INTERACTION =====
 const pugBtn = document.getElementById('pugBtn');
 const pugCharacter = document.getElementById('pugCharacter');
 const pugSpeech = document.getElementById('pugSpeech');
+
 pugBtn.addEventListener('click', () => {
     // Reset animations
     pugCharacter.classList.remove('jumping');
