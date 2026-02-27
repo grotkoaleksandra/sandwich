@@ -306,7 +306,7 @@ img { max-width: 100%; display: block; }
 /* ===== PUG MASCOT SECTION ===== */
 .pug-section {
     background: #fee6c1;
-    padding: 60px 0 40px;
+    padding: 32px 0 28px;
     display: flex;
     justify-content: center;
     overflow: hidden;
